@@ -2,9 +2,13 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 using UnityEngine.Events;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
+    [SerializeField] private Button  backButton;
+
     [SerializeField] private TMP_Dropdown filterDropDown;
      public GameObject clientListContent;
 
@@ -14,7 +18,7 @@ public class UIManager : MonoBehaviour
     public List<ClientListItem> clients;
  
     public ClientDataManager clientDataManager; 
-    public UnityEvent<ClientDataManager.ClientEntry> onShowClientDetails;
+    internal UnityEvent<ClientDataManager.ClientEntry> onShowClientDetails;
 
     public static UIManager instance;
 
@@ -31,7 +35,10 @@ public class UIManager : MonoBehaviour
         onShowClientDetails = new UnityEvent<ClientDataManager.ClientEntry>();
 
         filterDropDown.onValueChanged.RemoveAllListeners();
-        filterDropDown.onValueChanged.AddListener(ApplyFilter); 
+        filterDropDown.onValueChanged.AddListener(ApplyFilter);
+
+        backButton.onClick.RemoveAllListeners();
+        backButton.onClick.AddListener(()=>SceneManager.LoadScene(0));
     }
     private void Start()
     {

@@ -9,8 +9,8 @@ public class ClientDataManager : MonoBehaviour
 {
     private APIService apiService;
     private ClientsData clientsData;
-    public ClientsData Clients { get { return clientsData; } }
-    public UnityEvent onDataFetched;
+    public ClientsData Clients => clientsData;
+    internal UnityEvent onDataFetched;
     private void Awake()
     {
         onDataFetched = new UnityEvent();

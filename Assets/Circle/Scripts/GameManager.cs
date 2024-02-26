@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private Button backButton;
 
     [SerializeField] Button restartButton;
 
@@ -21,6 +22,9 @@ public class GameManager : MonoBehaviour
         }
         restartButton.onClick.RemoveAllListeners();
         restartButton.onClick.AddListener(RestartGame);
+
+        backButton.onClick.RemoveAllListeners();
+        backButton.onClick.AddListener(() => SceneManager.LoadScene(0));
     }
     
     private void RestartGame()
