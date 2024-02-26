@@ -1,0 +1,2 @@
+# SunBase_Assignement
+ Task 1: Client List Display with Filtering and Popup  This project utilizes Unity to fetch JSON data from a provided API and display a list of clients with their labels and points. The user can filter the client list to display all clients, managers only, or non-managers. Clicking on a client in the list triggers a popup window with animations using DOTween, showing the client's name, points, and address.
