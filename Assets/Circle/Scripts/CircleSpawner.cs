@@ -1,7 +1,12 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class CircleSpawner : MonoBehaviour
 {
+    public float delayBetweenOpenningClients = 0.2f;
+    public float openDuration = 0.5f;
+    public Ease openEaseType = Ease.OutBounce;
+
     public GameObject circlePrefab;
     public float minDistanceBetweenObjects = 1.2f;
     public int minCircles = 5;
@@ -15,6 +20,8 @@ public class CircleSpawner : MonoBehaviour
 
     void SpawnCircles(int count)
     {
+        Sequence sequence = DOTween.Sequence();
+
         float circleRadius = circlePrefab.GetComponent<Renderer>().bounds.extents.magnitude;
         Camera mainCamera = Camera.main;
 
@@ -42,7 +49,14 @@ public class CircleSpawner : MonoBehaviour
             }
 
             // Spawn the circle at the calculated random position
-            Instantiate(circlePrefab, position, Quaternion.identity);
+           var obj = Instantiate(circlePrefab, position, Quaternion.identity);
+            var originalScale = obj.transform.localScale;
+            obj.transform.localScale = Vector3.zero;
+            sequence.AppendInterval(delayBetweenOpenningClients)
+                       .AppendCallback(() => obj.SetActive(true))
+                       .Append(obj.transform.DOScale(originalScale, openDuration))
+                       .SetEase(openEaseType);
+
         }
     }
 

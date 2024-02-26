@@ -1,3 +1,4 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +11,10 @@ public class ClientDetailsPopUp : MonoBehaviour
     [SerializeField] private Button popUpCloseButton;
     [SerializeField] private GameObject popUpParent;
 
+    [SerializeField] private float popupOpenDuration = 0.5f;
+    [SerializeField] private float popupCloseDuration = 0.3f;
+
+
     private UIManager uIManager;
     void Start()
     {
@@ -21,19 +26,26 @@ public class ClientDetailsPopUp : MonoBehaviour
         uIManager.onShowClientDetails.RemoveAllListeners();
         uIManager.onShowClientDetails.AddListener(ShowPopup);
 
-        ClosePopUp();
+        //ClosePopUp();
     }
 
-    private void ShowPopup(ClientDataManager.ClientEntry client)
+    public void ShowPopup(ClientDataManager.ClientEntry client)
     {
+        // Populate the popup with client data
         clientNameText.text = uIManager.clientDataManager.Clients.data[client.id].name;
-        clientPointsText.text = uIManager. clientDataManager.Clients.data[client.id].points.ToString();
-        clientAddressText.text = uIManager. clientDataManager.Clients.data[client.id].address;
+        clientPointsText.text = uIManager.clientDataManager.Clients.data[client.id].points.ToString();
+        clientAddressText.text = uIManager.clientDataManager.Clients.data[client.id].address;
 
+        // Open popup with animation
         popUpParent.SetActive(true);
+        popUpParent.transform.localScale = Vector3.zero;
+        popUpParent.transform.DOScale(Vector3.one, popupOpenDuration);
     }
-    private void ClosePopUp()
+
+    public void ClosePopUp()
     {
-        popUpParent.SetActive(false);  
+        // Close popup with animation
+        popUpParent.transform.DOScale(Vector3.zero, popupCloseDuration)
+            .OnComplete(() => popUpParent.SetActive(false));
     }
 }

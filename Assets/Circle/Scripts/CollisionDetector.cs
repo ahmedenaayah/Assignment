@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using DG.Tweening;
 
 public class CollisionDetector 
 {
@@ -47,9 +48,13 @@ public class CollisionDetector
 
     private void HandleCollisions()
     {
+        Sequence sequence = DOTween.Sequence();
+
         foreach (GameObject obj in collidedObjects)
         {
-            obj.SetActive(false);
+             sequence.AppendInterval(0.2f)                      
+                       .Append(obj.transform.DOScale(Vector3.zero, 0.5f))
+                       .SetEase( Ease.OutBounce);
         }
     }
 }

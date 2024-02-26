@@ -1336,12 +1336,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc8af0bda004eeb418f6194409f61b7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delayBetweenOpenningClients: 0.35
+  openDuration: 0.4
+  openEaseType: 30
   backButton: {fileID: 2136861303}
   filterDropDown: {fileID: 613687560}
   clientListContent: {fileID: 68570900}
   clientListItemPrefab: {fileID: 6391723663941009525, guid: f8027a5db89998e42bd174d036def237, type: 3}
   clients: []
   clientDataManager: {fileID: 20475968}
+  onShowClientDetails:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1554337506
 GameObject:
   m_ObjectHideFlags: 0
@@ -1426,7 +1432,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 156221906}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.81333333
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2284,7 +2290,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4240649229355081971, guid: 7e7ffebaba054fd47a31118ffc9750e4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4944878514983661210, guid: 7e7ffebaba054fd47a31118ffc9750e4, type: 3}
       propertyPath: m_fontColor.b
@@ -2425,6 +2431,10 @@ PrefabInstance:
     - target: {fileID: 8829236952318247240, guid: 7e7ffebaba054fd47a31118ffc9750e4, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4278190080
+      objectReference: {fileID: 0}
+    - target: {fileID: 8962281858012165466, guid: 7e7ffebaba054fd47a31118ffc9750e4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
