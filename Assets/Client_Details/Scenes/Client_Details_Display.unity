@@ -631,7 +631,7 @@ MonoBehaviour:
     m_Options:
     - m_Text: All Clients
       m_Image: {fileID: 0}
-    - m_Text: Managers Only
+    - m_Text: Managers
       m_Image: {fileID: 0}
     - m_Text: Non Managers
       m_Image: {fileID: 0}
@@ -1426,7 +1426,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 156221906}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.81333333
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
