@@ -76,8 +76,8 @@ public class UIManager : MonoBehaviour
     private void AddOpenDoTweenEffect(Sequence sequence, GameObject obj)
     {
         obj.transform.localScale = Vector3.zero;
-        sequence.AppendInterval(delayBetweenOpenningClients)
-                   .AppendCallback(() => obj.SetActive(true))
+        obj.SetActive(true);
+        sequence.AppendInterval(delayBetweenOpenningClients)                  
                    .Append(obj.transform.DOScale(Vector3.one, openDuration))
                    .SetEase(openEaseType);
     }
