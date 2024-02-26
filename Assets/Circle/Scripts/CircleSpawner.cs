@@ -3,28 +3,42 @@ using UnityEngine;
 
 public class CircleSpawner : MonoBehaviour
 {
+    // Time delay between opening each client
     public float delayBetweenOpenningClients = 0.2f;
+    // Duration of the opening animation
     public float openDuration = 0.5f;
+    // Easing type for the opening animation
     public Ease openEaseType = Ease.OutBounce;
 
+    // Prefab for the circle
     public GameObject circlePrefab;
+    // Minimum distance between circles to prevent overlap
     public float minDistanceBetweenObjects = 1.2f;
+    // Minimum number of circles to spawn
     public int minCircles = 5;
+    // Maximum number of circles to spawn
     public int maxCircles = 10;
+    // Padding to avoid spawning circles near the screen edges
     public float padding = 1.0f;
 
     void Start()
     {
+        // Spawn a random number of circles
         SpawnCircles(Random.Range(minCircles, maxCircles + 1));
     }
 
+    // Method to spawn circles
     void SpawnCircles(int count)
     {
+        // Create a sequence for opening circles with DOTween
         Sequence sequence = DOTween.Sequence();
 
+        // Calculate the radius of the circle prefab
         float circleRadius = circlePrefab.GetComponent<Renderer>().bounds.extents.magnitude;
+        // Get the main camera
         Camera mainCamera = Camera.main;
 
+        // Calculate the height and width of the camera's viewport
         float cameraHeight = mainCamera.orthographicSize * 2;
         float cameraWidth = cameraHeight * mainCamera.aspect;
 
@@ -49,16 +63,16 @@ public class CircleSpawner : MonoBehaviour
             }
 
             // Spawn the circle at the calculated random position
-           var obj = Instantiate(circlePrefab, position, Quaternion.identity);
+            var obj = Instantiate(circlePrefab, position, Quaternion.identity);
             var originalScale = obj.transform.localScale;
             obj.transform.localScale = Vector3.zero;
+
+            // Add animation to the sequence for opening the circle
             sequence.AppendInterval(delayBetweenOpenningClients)
-                       .AppendCallback(() => obj.SetActive(true))
-                       .Append(obj.transform.DOScale(originalScale, openDuration))
-                       .SetEase(openEaseType);
-
+                    .AppendCallback(() => obj.SetActive(true))
+                    .Append(obj.transform.DOScale(originalScale, openDuration))
+                    .SetEase(openEaseType);
         }
+        sequence.Play();
     }
-
-
 }

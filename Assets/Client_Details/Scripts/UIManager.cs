@@ -7,23 +7,26 @@ using UnityEngine.SceneManagement;
 using DG.Tweening;
 
 public class UIManager : MonoBehaviour
-{ 
+{
+    // Variables for animation parameters
     public float delayBetweenOpenningClients = 0.2f;
     public float openDuration = 0.5f;
     public Ease openEaseType = Ease.OutBounce;
 
-    [SerializeField] private Button  backButton;
-
+    // UI elements
+    [SerializeField] private Button backButton;
     [SerializeField] private TMP_Dropdown filterDropDown;
-     public GameObject clientListContent;
-
+    public GameObject clientListContent;
     public GameObject clientListItemPrefab;
-   
-    [SerializeField]
-    public List<ClientListItem> clients;
- 
-    public ClientDataManager clientDataManager; 
-    [HideInInspector]public UnityEvent<ClientDataManager.ClientEntry> onShowClientDetails;
+
+    // List of client items
+    [SerializeField] public List<ClientListItem> clients;
+
+    // Reference to ClientDataManager
+    public ClientDataManager clientDataManager;
+
+    // Event for showing client details
+    [HideInInspector] public UnityEvent<ClientDataManager.ClientEntry> onShowClientDetails;
 
     public static UIManager instance;
 
@@ -37,18 +40,25 @@ public class UIManager : MonoBehaviour
         {
             Destroy(this);
         }
+
+        // Initialize event
         onShowClientDetails = new UnityEvent<ClientDataManager.ClientEntry>();
 
+        // Add listeners to UI elements
         filterDropDown.onValueChanged.RemoveAllListeners();
         filterDropDown.onValueChanged.AddListener(ApplyFilter);
 
         backButton.onClick.RemoveAllListeners();
-        backButton.onClick.AddListener(()=>SceneManager.LoadScene(0));
+        backButton.onClick.AddListener(() => SceneManager.LoadScene(0));
     }
+
     private void Start()
     {
+        // Add listener for when data is fetched
         clientDataManager.onDataFetched.AddListener(PlaceAllClientsInPanel);
     }
+
+    // Place all clients in the panel
     private void PlaceAllClientsInPanel()
     {
         foreach (var client in clientDataManager.Clients.clients)
@@ -56,19 +66,23 @@ public class UIManager : MonoBehaviour
             GameObject obj = Instantiate(clientListItemPrefab, clientListContent.transform);
             obj.SetActive(false);
             var clientList = obj.GetComponent<ClientListItem>();
-            clientList.SetClient(client,this);
+            clientList.SetClient(client, this);
             clients.Add(clientList);
         }
         ShowAllClients(true);
     }
-    private void AddOpenDoTweenEffect(Sequence sequence,GameObject obj)
+
+    // Add opening animation effect using DOTween
+    private void AddOpenDoTweenEffect(Sequence sequence, GameObject obj)
     {
         obj.transform.localScale = Vector3.zero;
         sequence.AppendInterval(delayBetweenOpenningClients)
                    .AppendCallback(() => obj.SetActive(true))
                    .Append(obj.transform.DOScale(Vector3.one, openDuration))
                    .SetEase(openEaseType);
-    } 
+    }
+
+    // Apply filter based on dropdown selection
     private void ApplyFilter(int filterType)
     {
         switch (filterType)
@@ -84,6 +98,8 @@ public class UIManager : MonoBehaviour
                 break;
         }
     }
+
+    // Show all clients
     private void ShowAllClients(bool isFirstTime = false)
     {
         if (!isFirstTime)
@@ -94,9 +110,11 @@ public class UIManager : MonoBehaviour
 
         foreach (var client in clients)
         {
-            AddOpenDoTweenEffect(sequence,client.gameObject);
+            AddOpenDoTweenEffect(sequence, client.gameObject);
         }
     }
+
+    // Show all managers
     private void ShowAllManagers()
     {
         DisableAll();
@@ -110,6 +128,8 @@ public class UIManager : MonoBehaviour
             }
         }
     }
+
+    // Show all non-managers
     private void ShowNonManagers()
     {
         DisableAll();
@@ -123,12 +143,13 @@ public class UIManager : MonoBehaviour
             }
         }
     }
+
+    // Disable all client objects
     private void DisableAll()
     {
         foreach (var client in clients)
         {
-           client.gameObject.SetActive(false);
+            client.gameObject.SetActive(false);
         }
     }
-    
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 public class ClientListItem : MonoBehaviour
 {
     [SerializeField] private GameObject noDataAlert;
@@ -37,8 +38,16 @@ public class ClientListItem : MonoBehaviour
         }
         else
         {
+            // Activate the noDataAlert object
             noDataAlert.SetActive(true);
 
+            // Apply Dotween animation to shake the noDataAlert
+            noDataAlert.transform.DOShakePosition(0.5f, new Vector3(10, 0, 0), 10, 90, false)
+                .OnComplete(() =>
+                {
+                    // After shaking animation, disable the noDataAlert
+                    noDataAlert.SetActive(false);
+                });
         }
     }
 }
