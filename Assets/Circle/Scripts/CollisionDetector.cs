@@ -58,10 +58,18 @@ public class CollisionDetector
         // Iterate through each collided object
         foreach (GameObject obj in collidedObjects)
         {
+             /*
             // Define the animation sequence for each collided object
             sequence.AppendInterval(0.2f) // Wait for a short interval before starting the animation
                     .Append(obj.transform.DOScale(Vector3.zero, 0.5f)) // Scale down the object to zero over a duration
                     .SetEase(Ease.OutBounce); // Apply an easing function to the animation
+            */
+            // Add animation to the sequence for opening the circle
+            sequence.AppendCallback(() =>
+            {
+                obj.transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.Flash);
+            }).AppendInterval(0.2f);
         }
+        sequence.Play();
     }
 }

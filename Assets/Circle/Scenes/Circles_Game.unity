@@ -152,6 +152,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b88858a5b94ee842b578cee85997e85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delayBetweenOpenningClients: 0.2
+  openDuration: 0.5
+  openEaseType: 35
   circlePrefab: {fileID: 1984417222542379983, guid: 16c4c6c5ebd887444a2096faee757672, type: 3}
   minDistanceBetweenObjects: 1.2
   minCircles: 6

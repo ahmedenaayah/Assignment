@@ -77,9 +77,17 @@ public class UIManager : MonoBehaviour
     {
         obj.transform.localScale = Vector3.zero;
         obj.SetActive(true);
+        /*
         sequence.AppendInterval(delayBetweenOpenningClients)                  
                    .Append(obj.transform.DOScale(Vector3.one, openDuration))
                    .SetEase(openEaseType);
+        */
+        // Add animation to the sequence for opening the circle
+        sequence.AppendCallback(() =>
+        {
+            obj.SetActive(true);
+            obj.transform.DOScale(Vector3.one, openDuration).SetEase(openEaseType);
+        }).AppendInterval(delayBetweenOpenningClients);
     }
 
     // Apply filter based on dropdown selection

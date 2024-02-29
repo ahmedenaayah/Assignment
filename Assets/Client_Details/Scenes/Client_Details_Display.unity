@@ -1326,7 +1326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayBetweenOpenningClients: 0.35
   openDuration: 0.4
-  openEaseType: 30
+  openEaseType: 1
   backButton: {fileID: 2136861303}
   filterDropDown: {fileID: 613687560}
   clientListContent: {fileID: 68570900}
@@ -1420,7 +1420,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 156221906}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.81333333
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

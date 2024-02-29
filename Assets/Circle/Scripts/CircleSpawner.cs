@@ -68,11 +68,14 @@ public class CircleSpawner : MonoBehaviour
             obj.transform.localScale = Vector3.zero;
 
             // Add animation to the sequence for opening the circle
-            sequence.AppendInterval(delayBetweenOpenningClients)
-                    .AppendCallback(() => obj.SetActive(true))
-                    .Append(obj.transform.DOScale(originalScale, openDuration))
-                    .SetEase(openEaseType);
+            sequence.AppendCallback(() =>
+            {
+                obj.SetActive(true);
+                obj.transform.DOScale(originalScale, openDuration).SetEase(openEaseType);
+            }).AppendInterval(delayBetweenOpenningClients);
         }
+
+        // Play the sequence after the loop
         sequence.Play();
     }
 }
